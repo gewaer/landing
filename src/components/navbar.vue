@@ -101,6 +101,10 @@ export default {
                 color: var(--primary-color);
             }
         }
+
+        @media(min-width: 767px) {
+            display: none;
+        }
     }
 }
 </style>
