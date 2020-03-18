@@ -5,7 +5,9 @@
         </div>
         <div class="nav-bar-links">
             <a href="#">About</a>
-            <a href="#" class="try-it-out">Try it out!</a>
+            <router-link :to="{ name: 'CreateProject' }" class="try-it-out">
+                Try it out!
+            </router-link>
             <a href="#">Login</a>
         </div>
         <dropdown
@@ -22,7 +24,9 @@
             </template>
             <template slot="body">
                 <a href="#">About</a>
-                <a href="#" class="try-it-out">Try it out!</a>
+                <router-link :to="{ name: 'CreateProject' }" class="try-it-out">
+                    Try it out!
+                </router-link>
                 <a href="#">Login</a>
             </template>
         </dropdown>

@@ -4,9 +4,9 @@
             <div class="row">
                 <div class="col-auto">
                     <h1>Get ready to build<br>your <span>kanvas</span></h1>
-                    <button class="btn btn-primary">
+                    <router-link :to="{ name: 'CreateProject' }" class="btn btn-primary">
                         Try it for FREE!
-                    </button>
+                    </router-link>
                 </div>
             </div>
         </div>
