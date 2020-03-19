@@ -4,7 +4,7 @@
             <img src="/img/kanvas-logo.svg" width="65" alt="Kanvas logo">
         </div>
         <div class="nav-bar-links">
-            <a href="#">About</a>
+            <a v-scroll-to="'#about-section'" href="#">About</a>
             <router-link :to="{ name: 'CreateProject' }" class="try-it-out">
                 Try it out!
             </router-link>
@@ -34,7 +34,10 @@
 </template>
 
 <script>
+import Vue from "vue";
 import Dropdown from "bp-vuejs-dropdown";
+import VueScrollTo from "vue-scrollto"
+Vue.use(VueScrollTo);
 
 export default {
     name: "NavBar",

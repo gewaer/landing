@@ -71,6 +71,20 @@ export default {
         }
     }
 
+    @media(min-width: 1500px) {
+        .container {
+            max-width: 100%;
+
+            .col-auto {
+                margin-left: 12vw;
+
+                .btn {
+                    transform: translateX(50%) translateY(50%) scale(2);
+                }
+            }
+        }
+    }
+
     @media(max-width: 1680px) {
         background-size: 55%;
     }
