@@ -100,10 +100,19 @@ export default {
                 padding-left: 0;
                 margin-bottom: 0;
 
+                @media(max-width: 1200px) {
+                    width: 75%;
+                    margin-left: auto;
+                }
+
                 li {
                     list-style: none;
                     padding: 30px 0;
                     flex: 1;
+
+                    @media(max-width: 1200px) {
+                        display: none;
+                    }
 
                     a {
                         color: #3B566E;
@@ -140,6 +149,15 @@ export default {
                     }
 
                     &.active {
+                        @media(max-width: 1200px) {
+                            display: block;
+
+                            &:after {
+                                border-top-right-radius: 0% !important;
+                                border-bottom-right-radius: 0% !important;
+                            }
+                        }
+
                         a {
                             color: white;
 
@@ -205,6 +223,10 @@ export default {
                     width: 0%;
                     left: 100%;
                     transition: width 1s .5s;
+
+                    @media(max-width: 1200px) {
+                        width: 100%;
+                    }
                 }
             }
 

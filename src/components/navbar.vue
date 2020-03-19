@@ -8,7 +8,7 @@
             <router-link :to="{ name: 'CreateProject' }" class="try-it-out">
                 Try it out!
             </router-link>
-            <a href="#">Login</a>
+            <a :href="KANVAS_PANEL">Login</a>
         </div>
         <dropdown
             :is-icon="false"
@@ -23,11 +23,11 @@
                 </a>
             </template>
             <template slot="body">
-                <a href="#">About</a>
+                <a v-scroll-to="'#about-section'" href="#">About</a>
                 <router-link :to="{ name: 'CreateProject' }" class="try-it-out">
                     Try it out!
                 </router-link>
-                <a href="#">Login</a>
+                <a :href="KANVAS_PANEL">Login</a>
             </template>
         </dropdown>
     </div>
@@ -41,7 +41,12 @@ Vue.use(VueScrollTo);
 
 export default {
     name: "NavBar",
-    components: { Dropdown }
+    components: { Dropdown },
+    data() {
+        return {
+            KANVAS_PANEL: process.env.VUE_APP_KANVAS_PANEL
+        };
+    }
 }
 </script>
 
