@@ -1,5 +1,5 @@
 <template>
-    <div class="kanvas-details">
+    <div id="about-section" class="kanvas-details">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg what-is-kanvas">

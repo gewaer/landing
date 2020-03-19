@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Landing from "../views/landing/";
+import CreateProject from "../views/create-project/";
 
 Vue.use(VueRouter)
 
@@ -9,6 +10,11 @@ const routes = [
         path: "/",
         name: "Landing",
         component: Landing
+    },
+    {
+        path: "/create-project",
+        name: "CreateProject",
+        component: CreateProject
     }
 ]
 
