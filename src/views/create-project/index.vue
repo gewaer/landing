@@ -4,40 +4,118 @@
             <ProjectCreationLoader v-if="isloading" />
         </transition>
         <div class="container">
-            <form-wizard
-                ref="createProject"
-                title=""
-                subtitle=""
-                :class="{ 'visited-last-step' : visitedLastStep }"
-                color=""
-                @on-change="setVisitedLastStep"
-            >
-                <wizard-step
-                    slot="step"
-                    :key="props.tab.title"
-                    slot-scope="props"
-                    :tab="props.tab"
-                    :transition="props.transition"
-                    :index="props.index"
-                    :max-step="maxStep"
-                />
-                <tab-content title="SELECT PROJECT" />
-                <tab-content title="DEVELOPMENT" />
-                <tab-content title="DESCRIPTION" />
-                <tab-content title="DATA MANAGMENT" />
-                <tab-content title="AUTH" />
-                <template slot="footer" slot-scope="props">
-                    <wizard-button v-if="props.activeTabIndex > 0" class="wizard-prev-button" @click.native="props.prevTab()">
-                        Go back
-                    </wizard-button>
-                    <wizard-button v-if="!props.isLastStep" class="wizard-next-button" @click.native="props.nextTab()">
-                        Next Step <i class="fas fa-chevron-right" />
-                    </wizard-button>
-                    <wizard-button v-if="props.isLastStep" class="wizard-next-button wizard-finish-button" @click.native="finishWizard">
-                        Finish up and Review
-                    </wizard-button>
-                </template>
-            </form-wizard>
+            <form novalidate>
+                <form-wizard
+                    ref="createProject"
+                    title=""
+                    subtitle=""
+                    :class="{ 'visited-last-step' : visitedLastStep }"
+                    color=""
+                    @on-change="setVisitedLastStep"
+                >
+                    <wizard-step
+                        slot="step"
+                        :key="props.tab.title"
+                        slot-scope="props"
+                        :tab="props.tab"
+                        :transition="props.transition"
+                        :index="props.index"
+                        :max-step="maxStep"
+                    />
+                    <tab-content title="PROJECT">
+                        <div class="project-selection">
+                            <div class="form-check">
+                                <input
+                                    id="web-based-project"
+                                    v-model="projectSetup.project_type"
+                                    value="web"
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="web-based-project"
+                                >
+                                <label class="form-check-label" for="web-based-project">
+                                    <i class="fab fa-chrome" />
+                                    Web
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    id="mobile-based-project"
+                                    v-model="projectSetup.project_type"
+                                    value="mobile"
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="mobile-based-project"
+                                >
+                                <label class="form-check-label" for="mobile-based-project">
+                                    <i class="fas fa-mobile" />
+                                    Mobile
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    id="both-based-project"
+                                    v-model="projectSetup.project_type"
+                                    value="both"
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="both-based-project"
+                                >
+                                <label class="form-check-label" for="both-based-project">
+                                    <i class="fas fa-code" />
+                                    Both
+                                </label>
+                            </div>
+                        </div>
+                    </tab-content>
+                    <tab-content title="DESCRIPTION">
+                        <div class="description">
+                            <div class="form-group">
+                                <label for="project-name">Project name</label>
+                                <input
+                                    id="project-name"
+                                    v-model="projectSetup.name"
+                                    type="text"
+                                    class="form-control"
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="project-description">Description</label>
+                                <textarea
+                                    id="project-description"
+                                    v-model="projectSetup.description"
+                                    class="form-control"
+                                    rows="3"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="project-url">Project name</label>
+                                <input
+                                    id="project-url"
+                                    v-model="projectSetup.url"
+                                    type="text"
+                                    class="form-control"
+                                >
+                            </div>
+                        </div>
+                    </tab-content>
+                    <tab-content title="APP SETTINGS">
+                        <div class="app-settings" />
+                    </tab-content>
+                    <tab-content title="AUTH" />
+                    <template slot="footer" slot-scope="props">
+                        <wizard-button v-if="props.activeTabIndex > 0" class="wizard-prev-button" @click.native="props.prevTab()">
+                            Go back
+                        </wizard-button>
+                        <wizard-button v-if="!props.isLastStep" class="wizard-next-button" @click.native="props.nextTab()">
+                            Next Step <i class="fas fa-chevron-right" />
+                        </wizard-button>
+                        <wizard-button v-if="props.isLastStep" class="wizard-next-button wizard-finish-button" @click.native="finishWizard">
+                            Finish up and Review
+                        </wizard-button>
+                    </template>
+                </form-wizard>
+            </form>
         </div>
     </div>
 </template>
@@ -56,7 +134,13 @@ export default {
     data() {
         return {
             isloading: false,
-            visitedLastStep: false
+            visitedLastStep: false,
+            projectSetup: {
+                project_type: "web",
+                name: "",
+                description: "",
+                url: ""
+            }
         };
     },
     computed: {
@@ -231,9 +315,67 @@ export default {
             }
 
             .wizard-tab-content {
+                padding: 30px;
                 min-height: 500px;
                 margin-top: 50px;
                 background-color: #363262;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .wizard-tab-container {
+                    width: 100%;
+
+                    .project-selection {
+                        display: flex;
+                        padding: 0 250px;
+                        justify-content: space-between;
+
+                        .form-check {
+                            padding-left: 0;
+
+                            input {
+                                display: none;
+                            }
+
+                            input:checked + label {
+                                color: white;
+
+                                i {
+                                    color: var(--primary-color);
+                                }
+                            }
+
+                            label {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                color: rgba(255, 255, 255, .5);
+                                font-size: 20px;
+                                cursor: pointer;
+
+                                i {
+                                    color: #201E3B;
+                                    font-size: 80px;
+                                    margin-bottom: 20px;
+                                }
+                            }
+                        }
+                    }
+
+                    .description {
+                        .form-group {
+                            label {
+                                color: white;
+                            }
+
+                            input,
+                            textarea {
+                                background-color: #c1f1ff;
+                            }
+                        }
+                    }
+                }
             }
         }
 
