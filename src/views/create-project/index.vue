@@ -23,182 +23,16 @@
                         :max-step="maxStep"
                     />
                     <tab-content title="PROJECT">
-                        <div class="project-selection">
-                            <div class="form-check">
-                                <input
-                                    id="web-based-project"
-                                    v-model="projectSetup.project_type"
-                                    value="web"
-                                    class="form-check-input"
-                                    type="radio"
-                                    name="web-based-project"
-                                >
-                                <label class="form-check-label" for="web-based-project">
-                                    <i class="fab fa-chrome" />
-                                    Web
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input
-                                    id="mobile-based-project"
-                                    v-model="projectSetup.project_type"
-                                    value="mobile"
-                                    class="form-check-input"
-                                    type="radio"
-                                    name="mobile-based-project"
-                                >
-                                <label class="form-check-label" for="mobile-based-project">
-                                    <i class="fas fa-mobile" />
-                                    Mobile
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input
-                                    id="both-based-project"
-                                    v-model="projectSetup.project_type"
-                                    value="both"
-                                    class="form-check-input"
-                                    type="radio"
-                                    name="both-based-project"
-                                >
-                                <label class="form-check-label" for="both-based-project">
-                                    <i class="fas fa-code" />
-                                    Both
-                                </label>
-                            </div>
-                        </div>
+                        <step-selection :project-setup="projectSetup" />
                     </tab-content>
-                    <tab-content title="DESCRIPTION">
-                        <div class="description">
-                            <div class="form-group">
-                                <label for="project-name">Project name</label>
-                                <input
-                                    id="project-name"
-                                    v-model="projectSetup.name"
-                                    type="text"
-                                    class="form-control"
-                                >
-                            </div>
-                            <div class="form-group">
-                                <label for="project-description">Description</label>
-                                <textarea
-                                    id="project-description"
-                                    v-model="projectSetup.description"
-                                    class="form-control"
-                                    rows="3"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label for="project-url">Project name</label>
-                                <input
-                                    id="project-url"
-                                    v-model="projectSetup.url"
-                                    type="text"
-                                    class="form-control"
-                                >
-                            </div>
-                        </div>
+                    <tab-content title="DESCRIPTION" :before-change="validateForm">
+                        <step-description ref="Description" :project-setup="projectSetup" />
                     </tab-content>
                     <tab-content title="APP SETTINGS">
-                        <div class="app-settings">
-                            <div class="row">
-                                <div class="col-auto">
-                                    <div class="form-group v-swatches">
-                                        <v-swatches v-model="projectSetup.primary_color" />
-                                        <label>Primary Color</label>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="form-group v-swatches">
-                                        <v-swatches v-model="projectSetup.secondary_color" />
-                                        <label>Secondary Color</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Currency</label>
-                                <multiselect
-                                    v-model="projectSetup.currency"
-                                    :options="['US', 'EUR', 'GBP']"
-                                    :allow-empty="false"
-                                    :show-labels="false"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label>Language</label>
-                                <multiselect
-                                    v-model="projectSetup.language"
-                                    :options="['English', 'Spanish']"
-                                    :allow-empty="false"
-                                    :show-labels="false"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label>Timezone</label>
-                                <multiselect
-                                    v-model="projectSetup.timezone"
-                                    :options="['Option 1', 'Option 2', 'Option 3']"
-                                    :allow-empty="false"
-                                    :show-labels="false"
-                                />
-                            </div>
-                        </div>
+                        <step-settings :project-setup="projectSetup" />
                     </tab-content>
                     <tab-content title="AUTH">
-                        <div class="auth">
-                            <div class="row align-items-center">
-                                <div class="col-12 col-lg">
-                                    <div class="form-group switch mb-4 mb-lg-0">
-                                        <switches v-model="projectSetup.auth" color="blue" />
-                                        <label>Ecosystem Auth</label>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg">
-                                    <div class="form-group switch mb-4 mb-lg-0">
-                                        <switches v-model="projectSetup.allow_signup" color="blue" />
-                                        <label>Allow User Registration</label>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg d-flex flex-column align-items-center align-items-lg-start">
-                                    <div class="form-check">
-                                        <input
-                                            id="facebook"
-                                            v-model="projectSetup.social_login"
-                                            value="facebook"
-                                            class="form-check-input"
-                                            type="checkbox"
-                                        >
-                                        <label class="form-check-label" for="facebook">
-                                            Facebook Login
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input
-                                            id="google"
-                                            v-model="projectSetup.social_login"
-                                            value="google"
-                                            class="form-check-input"
-                                            type="checkbox"
-                                        >
-                                        <label class="form-check-label" for="google">
-                                            Google Login
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input
-                                            id="github"
-                                            v-model="projectSetup.social_login"
-                                            value="github"
-                                            class="form-check-input"
-                                            type="checkbox"
-                                        >
-                                        <label class="form-check-label" for="github">
-                                            Github Login
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <step-auth :project-setup="projectSetup" />
                     </tab-content>
                     <template slot="footer" slot-scope="props">
                         <wizard-button v-if="props.activeTabIndex > 0" class="wizard-prev-button" @click.native="props.prevTab()">
@@ -218,18 +52,19 @@
 </template>
 
 <script>
-import VSwatches from "vue-swatches";
-import "vue-swatches/dist/vue-swatches.css";
-import Multiselect from "vue-multiselect";
-import "vue-multiselect/dist/vue-multiselect.min.css";
-import Switches from "vue-switches";
+import StepSelection from "./step-selection";
+import StepDescription from "./step-description";
+import StepSettings from "./step-settings";
+import StepAuth from "./step-auth";
+import axios from "axios";
 
 export default {
     name: "CreateProject",
     components: {
-        Switches,
-        Multiselect,
-        VSwatches,
+        StepSelection,
+        StepDescription,
+        StepSettings,
+        StepAuth,
         ProjectCreationLoader: () => import(/* webpackChunkName: "project-creation-loader" */ "../../components/project-creation-loader"),
         FormWizard: () => import(/* webpackChunkName: "form-wizard-form" */ "vue-form-wizard").then(({ FormWizard }) => FormWizard),
         TabContent: () => import(/* webpackChunkName: "form-wizard-tab-content" */ "vue-form-wizard").then(({ TabContent }) => TabContent),
@@ -240,6 +75,7 @@ export default {
         return {
             isloading: false,
             visitedLastStep: false,
+            endpoint: process.env.VUE_APP_BASE_API_URL + "/apps",
             projectSetup: {
                 project_type: "web",
                 name: "",
@@ -270,8 +106,24 @@ export default {
                 this.visitedLastStep = true;
             }
         },
+        validateForm() {
+            return this.$refs.Description.isValid()
+        },
         finishWizard() {
             this.isloading = true;
+            axios({
+                url: this.endpoint,
+                method: "post",
+                data: this.projectSetup
+            })
+                .then(({ data }) => {
+                    console.log(data)
+                })
+                .catch((err) => {
+                    console.log(err)
+                }).finally(() => {
+                    this.isloading = false
+                })
         }
     }
 }
@@ -287,6 +139,10 @@ export default {
     .vue-form-wizard {
         .wizard-header {
             display: none;
+        }
+
+        .wizard-icon-circle {
+            background-color: transparent !important;
         }
 
         .wizard-navigation {
